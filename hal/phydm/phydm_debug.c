@@ -27,6 +27,8 @@
  * include files
  ************************************************************/
 
+#include <linux/string.h>
+
 #include "mp_precomp.h"
 #include "phydm_precomp.h"
 
@@ -5558,7 +5560,7 @@ void phydm_fw_trace_handler(void *dm_void, u8 *cmd_buf, u8 cmd_len)
 		return;
 	}
 
-	strncpy((char *)&dm->fw_debug_trace[dm->c2h_cmd_start],
+	strscpy((char *)&dm->fw_debug_trace[dm->c2h_cmd_start],
 		(char *)&cmd_buf[1], (cmd_len - 1));
 	dm->c2h_cmd_start += (cmd_len - 1);
 	dm->fw_buff_is_enpty = false;

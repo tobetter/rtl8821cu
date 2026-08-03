@@ -6870,7 +6870,12 @@ static s32 cfg80211_rtw_remain_on_channel(struct wiphy *wiphy,
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 8, 0))
 	enum nl80211_channel_type channel_type,
 #endif
-	unsigned int duration, u64 *cookie)
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(7, 2, 0))
+	unsigned int duration, u64 *cookie
+#else
+	unsigned int duration, u64 *cookie, const u8 *data
+#endif
+	)
 {
 	s32 err = 0;
 	u8 remain_ch = (u8) ieee80211_frequency_to_channel(channel->center_freq);
